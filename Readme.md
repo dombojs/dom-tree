@@ -27,6 +27,10 @@
 
   Reverse the list to process children before parents
 
+### TreeNode.visit(fn)
+
+  Traverse the tree and call `fn(node)`
+
 ## License
 
   MIT
