@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>dom - tree</title>
+</head>
+<body>
+
+<div id="node1" data-test>
+    <div>
+        <div id="node2" data-test>
+            <div>
+                <div id="node3" data-test></div>
+                <div></div>
+            </div>
+        </div>
+        <div></div>
+    </div>
+</div>
+
+<script src="../build/build.js"></script>
+<script>
+
+var dom = require('dom');
+dom.use(require('dom-tree'));
+var tree = dom('[data-test]').tree();
+console.log(tree.toList(), tree.toArray());
+console.log('append to array', tree.toArray([document.body]));
+console.log('children first', tree.toList(true));
+
+</script>
+
+</body>
+</html>

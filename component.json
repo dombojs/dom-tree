@@ -1,0 +1,17 @@
+{
+  "name": "dom-tree",
+  "repo": "dombojs/dom-tree",
+  "description": "transform component/dom list nodes into a tree",
+  "version": "0.0.1",
+  "keywords": ["dom", "tree"],
+  "dependencies": {
+    "component/dom": "*"
+  },
+  "development": {
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ]
+}
