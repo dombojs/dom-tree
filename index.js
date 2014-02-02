@@ -69,3 +69,10 @@ TreeNode.prototype.toList = function(reverse) {
     if (reverse) arr.reverse();
     return dom(arr);
 }
+
+TreeNode.prototype.visit = function(fn) {
+    if (this.node) fn(this.node);
+    for (var i = 0, len = this.children.length; i < len; i++) {
+        this.children[i].visit(fn);
+    }
+}
