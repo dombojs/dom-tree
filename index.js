@@ -16,13 +16,13 @@ function tree() {
 
     for (var i = 0; i < len; i++) {
         parents[i] = null;
-        var n = nodes[i].node, p = n;
+        var n = nodes[i].domNode, p = n;
         while (p = p.parentNode) {
             if (p === document.body || parents[i] !== null) {
                 break;
             }
             for (var j = 0; j < len; j++) {
-                if (p === nodes[j].node) {
+                if (p === nodes[j].domNode) {
                     parents[i] = nodes[j];
                     break;
                 }
@@ -40,14 +40,14 @@ function tree() {
 
 }
 
-function TreeNode(node) {
-    this.node = node;
+function TreeNode(domNode) {
+    this.domNode = domNode;
     this.children = [];
     this.parent = null;
 }
 
-TreeNode.create = function(n) {
-    return new TreeNode(n);
+TreeNode.create = function(domNode) {
+    return new TreeNode(domNode);
 }
 
 TreeNode.prototype.addChild = function(node) {
@@ -57,10 +57,9 @@ TreeNode.prototype.addChild = function(node) {
 
 TreeNode.prototype.toArray = function(arr) {
     if (!arr) arr = [];
-    if (this.node) arr.push(this.node);
-    for (var i = 0, len = this.children.length; i < len; i++) {
-        arr = arr.concat(this.children[i].toArray());
-    }
+    this.visit(function(node) {
+        arr.push(node.domNode);
+    });
     return arr;
 }
 
@@ -71,8 +70,10 @@ TreeNode.prototype.toList = function(reverse) {
 }
 
 TreeNode.prototype.visit = function(fn) {
-    if (this.node) fn(this.node);
+    if (this.domNode) {
+        if (false === fn(this)) return false;
+    }
     for (var i = 0, len = this.children.length; i < len; i++) {
-        this.children[i].visit(fn);
+        if (false === this.children[i].visit(fn)) return false;
     }
 }
